@@ -1,5 +1,10 @@
 {
-  "cSpell.words": ["limpo"],
+  "cSpell.words": [
+    "Pressable",
+    "limpo",
+    "persistor",
+    "Ñáéíóú"
+  ],
   "eslint.validate": ["javascript"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true

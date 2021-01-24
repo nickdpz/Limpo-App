@@ -1,33 +1,42 @@
-import axios from 'axios';
-import { SET_LOADING } from '../types/app';
+import { SET_LOADING, CLEAR_LOADING, SET_ERROR } from '../types/app';
 import { SET_USER } from '../types/user';
-import base64 from 'react-native-base64';
-import { API_URL } from '@env';
-axios.defaults.baseURL = API_URL;
-export const login = (email, password) => async (dispatch) => {
+import http from '../../lib/http';
+
+export const login = (user_email, password) => async (dispatch) => {
+  let response;
   dispatch({
     type: SET_LOADING,
   });
   try {
-    const { data } = await axios.post(
-      '/sign',
-      {},
-      {
-        headers: {
-          Authorization: `Basic ${base64.encode(email + ':' + password)}`,
-        },
-      }
-    );
-    console.log(data);
+    response = await http.instance.sign(user_email, password);
+    if (response.data.error) {
+      throw response;
+    }
+    console.log('response ', response);
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: SET_ERROR,
+      payload: {
+        state: true,
+        title: 'Try again',
+        message: error.data.error,
+      },
+    });
   }
+  dispatch({
+    type: CLEAR_LOADING,
+  });
+
+  // dispatch({
+  //   type: SET_USER,
+  //   payload: {
+  //     userName: name,
+  //     userAge: age,
+  //   },
+  // });
 };
 
-export const setUser = (name, age) => ({
+export const setUser = ({ _id, userName, name, lastName, email, phone }) => ({
   type: SET_USER,
-  payload: {
-    userName: name,
-    userAge: age,
-  },
+  payload: { _id, userName, name, lastName, email, phone },
 });
