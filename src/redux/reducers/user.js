@@ -5,8 +5,7 @@ export const user = (state = INITIAL_STATE, action) => {
     case SET_USER:
       return {
         ...state,
-        userName: action.payload.userName,
-        userAge: action.payload.userAge,
+        user: action.payload,
       };
     default:
       return state;

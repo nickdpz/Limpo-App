@@ -4,6 +4,8 @@ import {
   SET_ERROR,
   CLEAR_ERROR,
   SET_ROUTER,
+  CLEAR_LOGIN,
+  SET_LOGIN,
 } from '../types/app';
 
 export const setLoading = () => ({
@@ -12,6 +14,14 @@ export const setLoading = () => ({
 
 export const clearLoading = () => ({
   type: CLEAR_LOADING,
+});
+
+export const setLogin = () => ({
+  type: SET_LOGIN,
+});
+
+export const clearLogin = () => ({
+  type: CLEAR_LOGIN,
 });
 
 export const setError = (title, message) => ({

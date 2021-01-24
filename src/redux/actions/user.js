@@ -1,4 +1,4 @@
-import { SET_LOADING, CLEAR_LOADING, SET_ERROR } from '../types/app';
+import { SET_LOADING, CLEAR_LOADING, SET_ERROR, SET_LOGIN } from '../types/app';
 import { SET_USER } from '../types/user';
 import http from '../../lib/http';
 
@@ -13,6 +13,13 @@ export const login = (user_email, password) => async (dispatch) => {
       throw response;
     }
     console.log('response ', response);
+    dispatch({
+      type: SET_LOGIN,
+    });
+    dispatch({
+      type: SET_USER,
+      payload: { ...response.data.user, token: response.data.token },
+    });
   } catch (error) {
     dispatch({
       type: SET_ERROR,
@@ -22,6 +29,7 @@ export const login = (user_email, password) => async (dispatch) => {
         message: error.data.error,
       },
     });
+    throw error;
   }
   dispatch({
     type: CLEAR_LOADING,

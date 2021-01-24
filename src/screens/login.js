@@ -69,24 +69,18 @@ class Login extends Component {
       event.nativeEvent.text
     );
   };
+
   handleSubmit = async () => {
     Keyboard.dismiss();
     if (this.validatorInfo()) {
       this.props.clearError();
       try {
         await this.props.login(this.state.user_email, this.state.password);
+        this.props.navigation.navigate('Main');
       } catch (error) {
-        console.log(error);
-        //this.props.setError(error,)
+        this.state.user_email = '';
+        this.state.password = '';
       }
-      // this.props.navigation.dispatch(
-      //   CommonActions.navigate({
-      //     name: 'Main',
-      //     params: {
-      //       origin: 'login',
-      //     },
-      //   })
-      // );
     } else {
       this.props.setError(
         'Invalid info',
@@ -96,6 +90,7 @@ class Login extends Component {
   };
 
   render() {
+    console.log(this.props.user);
     return (
       <SafeAreaView style={styles.containerGlobal}>
         <Image
@@ -148,6 +143,7 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     app: state.app,
+    user: state.user,
   };
 };
 
