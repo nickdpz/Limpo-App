@@ -1,0 +1,8 @@
+{
+  "cSpell.words": ["limpo"],
+  "eslint.validate": ["javascript"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.eol": "\n",
+}
