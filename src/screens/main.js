@@ -1,35 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CommonActions } from '@react-navigation/native';
-import { Text, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, Pressable } from 'react-native';
+import stylesForm from '../assets/styles/form.style';
+import { logout } from '../redux/actions/user';
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    if (props.route.params.origin === 'register') {
-      props.navigation.dispatch(
-        CommonActions.reset({
-          index: 1,
-          routes: [
-            {
-              name: 'Main',
-              params: { origin: 'main', key: props.route.params.key },
-            },
-          ],
-        })
-      );
-    }
-  }
-
+  handleLogout = async () => {
+    this.props.logout();
+  };
   render() {
     return (
-      <>
-        <SafeAreaView>
-          <ScrollView contentInsetAdjustmentBehavior="automatic">
-            <Text>Hola {this.props.user.userName}</Text>
-            <Text>{this.props.user.userAge} EDAD</Text>
-          </ScrollView>
-        </SafeAreaView>
-      </>
+      <View>
+        <Text>Hola {this.props.user.name}</Text>
+        <Pressable onPress={this.handleLogout}>
+          <Text style={stylesForm.buttonForm}>Logout</Text>
+        </Pressable>
+      </View>
     );
   }
 }
@@ -39,5 +24,5 @@ const mapStateToProps = (state) => {
     user: state.user,
   };
 };
-
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = { logout };
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

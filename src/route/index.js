@@ -1,56 +1,62 @@
 import * as React from 'react';
+
+import { Icon } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux';
+import { logout } from '../redux/actions/user';
 import Main from '../screens/main';
 import Login from '../screens/login';
-import Register from '../screens/register';
-
+import Chat from '../screens/chat';
+import styles from '../assets/styles/global.style';
 const Stack = createStackNavigator();
 
 const Router = (props) => (
-  <>
-    {props.app.login ? (
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={props.app.initialRoute}
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: '#37a726',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        >
+  <NavigationContainer>
+    <Stack.Navigator
+      initialRouteName="Main"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#37a726',
+        },
+        headerTintColor: '#F2F2F2',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    >
+      {!props.app.login ? (
+        <>
+          <Stack.Screen name="Login" component={Login} />
+        </>
+      ) : (
+        <>
           <Stack.Screen
             name="Main"
             component={Main}
-            options={
-              {
-                //             tabBarIcon: ({ size, color }) => (
-                //               <Image
-                //                 style={{ tintColor: color, width: size, height: size }}
-                //                 source={require('./src/assets/images/logo.png')}
-                //               />
-                //             ),
-              }
-            }
+            options={{
+              headerRight: () => (
+                <Icon
+                  name="sign-out"
+                  type="font-awesome"
+                  containerStyle={styles.ml2}
+                  color="#f2f2f2"
+                  onPress={() => {
+                    props.logout();
+                  }}
+                />
+              ),
+            }}
           />
-          <Stack.Screen name="Register" component={Register} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    ) : (
-      <Login />
-    )}
-  </>
+          <Stack.Screen name="Chat" component={Chat} />
+        </>
+      )}
+    </Stack.Navigator>
+  </NavigationContainer>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    app: state.app,
-  };
-};
-
-export default connect(mapStateToProps)(Router);
+const mapStateToProps = (state) => ({
+  app: state.app,
+});
+const mapDispatchToProps = { logout };
+export default connect(mapStateToProps, mapDispatchToProps)(Router);

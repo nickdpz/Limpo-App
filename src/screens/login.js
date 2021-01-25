@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView,
   Text,
   TextInput,
+  SafeAreaView,
   //TouchableOpacity,
   ActivityIndicator,
   Keyboard,
@@ -22,6 +22,7 @@ class Login extends Component {
     isValidUserEmail: null,
     isValidPass: null,
   };
+
   validator = (name, value) => {
     let out = false;
     switch (name) {
@@ -53,7 +54,7 @@ class Login extends Component {
       'user_email',
       this.state.user_email
     );
-    const isValidPass = this.validator('user_email', this.state.password);
+    const isValidPass = this.validator('password', this.state.password);
     setTimeout(() => {
       this.setState({
         isValidPass,
@@ -77,10 +78,7 @@ class Login extends Component {
       try {
         await this.props.login(this.state.user_email, this.state.password);
         this.props.navigation.navigate('Main');
-      } catch (error) {
-        this.state.user_email = '';
-        this.state.password = '';
-      }
+      } catch (error) {}
     } else {
       this.props.setError(
         'Invalid info',
@@ -90,7 +88,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log(this.props.user);
     return (
       <SafeAreaView style={styles.containerGlobal}>
         <Image
@@ -125,7 +122,7 @@ class Login extends Component {
               </Text>
             </>
           )}
-          <Pressable disable={true} onPress={this.handleSubmit}>
+          <Pressable onPress={this.handleSubmit}>
             <Text style={styles.buttonForm}>Login</Text>
           </Pressable>
           {this.props.app.loading ? (
@@ -140,12 +137,11 @@ class Login extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    app: state.app,
-    user: state.user,
-  };
-};
+
+const mapStateToProps = (state) => ({
+  app: state.app,
+  user: state.user,
+});
 
 const mapDispatchToProps = { login, setError, clearError };
 

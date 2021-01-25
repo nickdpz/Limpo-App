@@ -1,5 +1,5 @@
 const initialState = {
-  initialRoute: 'Register',
+  initialRoute: 'Main',
   loading: false,
   error: {
     state: false,
