@@ -11,4 +11,18 @@ export default StyleSheet.create({
   ml2: {
     marginHorizontal: 20,
   },
+  w100: {
+    width: '100%',
+  },
+  h100: {
+    height: '100%',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bgB100: {
+    backgroundColor: '#0C6157',
+  },
 });

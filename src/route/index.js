@@ -5,9 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux';
 import { logout } from '../redux/actions/user';
-import Main from '../screens/main';
-import Login from '../screens/login';
-import Chat from '../screens/chat';
+import Main from '../screens/Main';
+import Login from '../screens/Login';
+import Chat from '../screens/Chat';
 import styles from '../assets/styles/global.style';
 const Stack = createStackNavigator();
 
@@ -48,7 +48,7 @@ const Router = (props) => (
               ),
             }}
           />
-          <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="Chat Limpo" component={Chat} />
         </>
       )}
     </Stack.Navigator>
