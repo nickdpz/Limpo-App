@@ -6,6 +6,7 @@ import {
   CLEAR_LOGIN,
 } from '../types/app';
 import { SET_USER, CLEAR_USER } from '../types/user';
+import { CLEAR_MESSAGES, SET_DEFAULT_MESSAGES } from '../types/messages';
 import http from '../../lib/http';
 
 export const login = (user_email, password) => async (dispatch) => {
@@ -27,6 +28,9 @@ export const login = (user_email, password) => async (dispatch) => {
     dispatch({
       type: SET_USER,
       payload: { ...response.data.user, token: response.data.token },
+    });
+    dispatch({
+      type: SET_DEFAULT_MESSAGES,
     });
   } catch (error) {
     dispatch({
@@ -51,6 +55,12 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: CLEAR_USER,
   });
+  dispatch({
+    type: CLEAR_MESSAGES,
+  });
+  // dispatch({
+  //   type: SET_DEFAULT_MESSAGES,
+  // });
 };
 
 export const setUser = ({ _id, userName, name, lastName, email, phone }) => ({

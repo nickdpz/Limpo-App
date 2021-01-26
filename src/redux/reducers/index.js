@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
 import { user } from './user';
 import { app } from './app';
-export default combineReducers({ user, app });
+import { messages } from './messages';
+export default combineReducers({ user, app, messages });

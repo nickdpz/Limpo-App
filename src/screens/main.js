@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import styles from '../assets/styles/main.style';
+import stylesGlobal from '../assets/styles/global.style';
 import { logout } from '../redux/actions/user';
 import { Avatar, Card, Text, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +11,15 @@ const Main = (props) => {
   const handleNavigation = async () => {
     navigation.navigate('Chat Limpo');
   };
+
+  const getIconUserRole = (role) =>
+    role === 'admin'
+      ? 'user-secret'
+      : role === 'customer'
+      ? 'user'
+      : role === 'client'
+      ? 'user-o'
+      : 'user-plus';
   return (
     <View style={styles.container}>
       <Card>
@@ -25,6 +35,21 @@ const Main = (props) => {
             h3
             style={styles.mx2}
           >{`Hello ${props.user.name} ${props.user.lastName}`}</Text>
+        </View>
+        <View
+          style={[
+            styles.containerInfo,
+            styles.containerJustify,
+            stylesGlobal.mt20,
+          ]}
+        >
+          <Text
+            h4
+            style={[stylesGlobal.textCapitalize, stylesGlobal.colorLimpo]}
+          >
+            {props.user.role + ' user '}
+          </Text>
+          <Icon name={getIconUserRole(props.user.role)} type="font-awesome" />
         </View>
       </Card>
       <View style={[styles.my, styles.containerInfo, styles.containerJustify]}>

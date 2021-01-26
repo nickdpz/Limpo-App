@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { View, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
+import moment from 'moment';
 import styles from '../assets/styles/inputBox.style';
 import stylesGlobal from '../assets/styles/global.style';
+import { setMessage } from '../redux/actions/messages';
 
 const InputBox = (props) => {
-  const { userId } = props;
-
-  const [message, setMessage] = useState('');
+  const { userId, userName } = props;
+  const [messageCurrent, setCurrentMessage] = useState('');
   const onSendPress = async () => {
-    console.log(message);
-    console.log(userId);
-    setMessage('');
+    props.setMessage(messageCurrent, moment().format(), userId, userName);
+    setCurrentMessage('');
   };
 
   return (
@@ -26,12 +27,12 @@ const InputBox = (props) => {
             placeholder={'Type a message'}
             style={styles.textInput}
             multiline
-            value={message}
-            onChangeText={setMessage}
+            value={messageCurrent}
+            onChangeText={setCurrentMessage}
           />
         </View>
         <View style={styles.buttonContainer}>
-          {!message ? (
+          {!messageCurrent ? (
             <Icon name="paper-plane" type="font-awesome" />
           ) : (
             <Icon
@@ -47,5 +48,6 @@ const InputBox = (props) => {
     </KeyboardAvoidingView>
   );
 };
+const mapDispatchToProps = { setMessage };
 
-export default InputBox;
+export default connect(null, mapDispatchToProps)(InputBox);

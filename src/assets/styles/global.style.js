@@ -25,4 +25,13 @@ export default StyleSheet.create({
   bgB100: {
     backgroundColor: '#0C6157',
   },
+  mt20: {
+    marginTop: 20,
+  },
+  textCapitalize: {
+    textTransform: 'capitalize',
+  },
+  colorLimpo: {
+    color: '#253c99',
+  },
 });

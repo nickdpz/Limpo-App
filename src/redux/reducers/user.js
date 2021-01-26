@@ -11,6 +11,8 @@ export const user = (state = INITIAL_STATE, action) => {
         lastName: action.payload.lastName,
         email: action.payload.email,
         phone: action.payload.phone,
+        role: action.payload.role,
+        scopes: action.payload.scopes,
         token: action.payload.token,
       };
     case CLEAR_USER:
