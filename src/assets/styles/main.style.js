@@ -19,4 +19,7 @@ export default StyleSheet.create({
   mx2: {
     marginHorizontal: 10,
   },
+  w200px: {
+    width: 200,
+  },
 });

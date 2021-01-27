@@ -31,10 +31,15 @@ const Main = (props) => {
             }}
             size="large"
           />
-          <Text
-            h3
-            style={styles.mx2}
-          >{`Hello ${props.user.name} ${props.user.lastName}`}</Text>
+          <View>
+            <Text h4 style={styles.mx2}>
+              Hello
+            </Text>
+            <Text
+              h4
+              style={[styles.mx2, styles.w200px]}
+            >{`${props.user.name} ${props.user.lastName}`}</Text>
+          </View>
         </View>
         <View
           style={[
